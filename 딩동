@@ -1,0 +1,4842 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no"
+>
+<title>민준이의 우주 일과표</title>
+
+<style>
+:root {
+  --bg1: #dff5ff;
+  --bg2: #ececff;
+  --bg3: #fff6d8;
+
+  --title: #29405f;
+  --card: #fffefb;
+  --accent: #ffd86b;
+
+  --overlay: rgba(82,108,163,.22);
+
+  --pill: #314563;
+  --pillText: #ffe987;
+
+  --text: #253954;
+
+  --check1: #c8f2d0;
+  --check2: #9ce4ab;
+}
+
+/* =========================
+   1. 테마
+========================= */
+
+body.theme-sky {
+  --bg1: #dff5ff;
+  --bg2: #ececff;
+  --bg3: #fff6d8;
+
+  --title: #29405f;
+  --accent: #ffd86b;
+
+  --pill: #314563;
+
+  --check1: #c8f2d0;
+  --check2: #9ce4ab;
+}
+
+body.theme-cotton {
+  --bg1: #ffe7f3;
+  --bg2: #eee7ff;
+  --bg3: #fff8df;
+
+  --title: #614e70;
+  --accent: #ffc9df;
+
+  --pill: #655276;
+
+  --check1: #f4d9ff;
+  --check2: #ddbcf0;
+}
+
+body.theme-mint {
+  --bg1: #e1fff7;
+  --bg2: #e8f5ff;
+  --bg3: #fff9df;
+
+  --title: #2d5154;
+  --accent: #a9e5d6;
+
+  --pill: #2e5056;
+
+  --check1: #c7f4e5;
+  --check2: #96dfc8;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+
+  font-family:
+    "Malgun Gothic",
+    "Apple SD Gothic Neo",
+    sans-serif;
+}
+
+body {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  padding: 1vh 0;
+
+  background:
+    radial-gradient(
+      circle at 12% 15%,
+      #fff 0 2px,
+      transparent 2.5px
+    ),
+
+    radial-gradient(
+      circle at 30% 35%,
+      #ffffffcc 0 1.5px,
+      transparent 2px
+    ),
+
+    radial-gradient(
+      circle at 72% 20%,
+      #fff 0 2px,
+      transparent 2.5px
+    ),
+
+    radial-gradient(
+      circle at 82% 66%,
+      #ffffffdd 0 2px,
+      transparent 2.5px
+    ),
+
+    linear-gradient(
+      180deg,
+      var(--bg1),
+      var(--bg2) 55%,
+      var(--bg3)
+    );
+}
+
+
+/* =========================
+   2. 상단 제목
+========================= */
+
+.top-area {
+  z-index: 3;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  gap: .7vh;
+
+  width: 100%;
+}
+
+.main-title {
+  color: var(--title);
+
+  font-weight: 900;
+  font-size: 3.1vh;
+
+  background: #ffffffd9;
+
+  padding: 1vh 2.6vh;
+
+  border-radius: 999px;
+
+  box-shadow:
+    0 8px 18px #52658f1f;
+}
+
+
+/* =========================
+   3. 테마 선택
+========================= */
+
+.theme-switcher {
+  display: flex;
+  gap: 8px;
+
+  flex-wrap: wrap;
+
+  justify-content: center;
+}
+
+.theme-chip {
+  border: 2px solid #fff;
+
+  background: #fffffff0;
+
+  color: var(--title);
+
+  border-radius: 999px;
+
+  padding: 8px 14px;
+
+  font-weight: 800;
+
+  cursor: pointer;
+
+  min-height: 38px;
+}
+
+.theme-chip.active {
+  background: var(--accent);
+}
+
+
+/* =========================
+   4. 행성 선택 영역
+========================= */
+
+.selector-container {
+  flex: 1;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+
+  min-height: 0;
+}
+
+.planet-selector {
+  position: relative;
+
+  width: 50vmin;
+  height: 50vmin;
+
+  max-width: 500px;
+  max-height: 500px;
+
+  border:
+    4px dashed #ffffffee;
+
+  border-radius: 50%;
+
+  background:
+    #ffffff30;
+
+  box-shadow:
+    inset 0 0 35px #ffffff55,
+    0 12px 28px #50628a1f;
+}
+
+/* 가운데 작은 별 */
+
+.planet-selector::before {
+  content: "✨";
+
+  position: absolute;
+
+  left: 45%;
+  top: 42%;
+
+  font-size: 3.5vh;
+
+  opacity: .55;
+}
+
+.planet-selector::after {
+  content: "⭐";
+
+  position: absolute;
+
+  left: 55%;
+  top: 55%;
+
+  font-size: 2.2vh;
+
+  opacity: .4;
+}
+
+
+/* =========================
+   행성 버튼
+========================= */
+
+.planet-btn {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  width: 12vh;
+  height: 12vh;
+
+  margin-left: -6vh;
+  margin-top: -6vh;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.planet-btn:nth-child(1) {
+  transform:
+    rotate(-90deg)
+    translate(24vmin)
+    rotate(90deg);
+}
+
+.planet-btn:nth-child(2) {
+  transform:
+    rotate(-38.6deg)
+    translate(25vmin)
+    rotate(38.6deg);
+}
+
+.planet-btn:nth-child(3) {
+  transform:
+    rotate(12.8deg)
+    translate(25vmin)
+    rotate(-12.8deg);
+}
+
+.planet-btn:nth-child(4) {
+  transform:
+    rotate(64.2deg)
+    translate(26vmin)
+    rotate(-64.2deg);
+}
+
+.planet-btn:nth-child(5) {
+  transform:
+    rotate(115.6deg)
+    translate(26vmin)
+    rotate(-115.6deg);
+}
+
+.planet-btn:nth-child(6) {
+  transform:
+    rotate(167deg)
+    translate(25vmin)
+    rotate(-167deg);
+}
+
+.planet-btn:nth-child(7) {
+  transform:
+    rotate(218.4deg)
+    translate(25vmin)
+    rotate(-218.4deg);
+}
+
+
+/* =========================
+   행성 이미지
+========================= */
+
+.p-circle {
+  width: 9.8vh;
+  height: 9.8vh;
+
+  border-radius: 50%;
+
+  margin-bottom: .3vh;
+
+  background-position: center;
+  background-repeat: no-repeat;
+
+  box-shadow:
+    0 8px 18px #3d52762b,
+    0 0 0 6px #ffffff88;
+
+  animation:
+    rotatePlanet 35s linear infinite;
+}
+
+.p-mercury {
+  background-image:
+    url(
+      'https://science.nasa.gov/wp-content/uploads/2023/11/mercury-messenger-globe-pia15162.jpg'
+    );
+
+  background-size: 115%;
+}
+
+.p-venus {
+  background-image:
+    url(
+      'https://cf-images.ap-southeast-2.prod.boltdns.net/v1/static/664969388001/2ae03679-5f47-4fba-a983-80deba634e38/8e915729-9a08-4705-ae3e-11fb2112c21a/640x360/match/image.jpg'
+    );
+
+  background-size: 200%;
+}
+
+.p-earth {
+  background-image:
+    url(
+      'https://images.pexels.com/photos/30596274/pexels-photo-30596274.jpeg'
+    );
+
+  background-size: 245%;
+}
+
+.p-mars {
+  background-image:
+    url(
+      'https://images.pexels.com/photos/12498801/pexels-photo-12498801.jpeg'
+    );
+
+  background-size: 205%;
+}
+
+.p-jupiter {
+  background-image:
+    url(
+      'https://images.pexels.com/photos/20337602/pexels-photo-20337602.jpeg'
+    );
+
+  background-size: 190%;
+}
+
+.p-uranus {
+  background-image:
+    url(
+      'https://images.pexels.com/photos/20337595/pexels-photo-20337595.jpeg'
+    );
+
+  background-size: 210%;
+}
+
+.saturn-container {
+  background: transparent !important;
+
+  box-shadow: none !important;
+
+  animation: none;
+
+  position: relative;
+}
+
+.saturn-img {
+  position: absolute;
+
+  left: 50%;
+  top: 43%;
+
+  transform:
+    translate(-50%, -50%);
+
+  width: 13vh;
+}
+
+@keyframes rotatePlanet {
+
+  from {
+    transform:
+      rotate(0deg);
+  }
+
+  to {
+    transform:
+      rotate(360deg);
+  }
+}
+
+
+/* =========================
+   요일 이름
+========================= */
+
+.day-label {
+  font-size: 2.2vh;
+
+  font-weight: 900;
+
+  color: var(--title);
+
+  background:
+    #fffffff0;
+
+  padding:
+    4px 10px;
+
+  border-radius:
+    999px;
+
+  min-width: 38px;
+
+  text-align: center;
+}
+
+
+/* =========================
+   하단 버튼
+========================= */
+
+.bottom-info-bar {
+  width: 100%;
+
+  display: flex;
+
+  justify-content: center;
+  align-items: center;
+
+  position: relative;
+
+  z-index: 3;
+
+  margin-bottom: .5vh;
+}
+
+.center-btns {
+  display: flex;
+
+  gap: 3vw;
+}
+
+.info-trigger-btn {
+  width: 28vw;
+
+  max-width: 360px;
+
+  min-height: 54px;
+
+  padding: 1vh;
+
+  background:
+    #fffffff0;
+
+  border:
+    3px solid var(--accent);
+
+  border-radius: 22px;
+
+  color: var(--title);
+
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  cursor: pointer;
+}
+
+.info-trigger-btn h3 {
+  margin: 0;
+
+  font-size: 2.2vh;
+}
+
+.right-lock-zone {
+  position: absolute;
+
+  right: 4vw;
+
+  background:
+    #ffffffbb;
+
+  border-radius: 50%;
+
+  padding:
+    8px 10px;
+
+  cursor: pointer;
+}
+
+
+/* =========================
+   공통 팝업
+========================= */
+
+.modal-overlay {
+  display: none;
+
+  position: fixed;
+
+  inset: 0;
+
+  background:
+    var(--overlay);
+
+  backdrop-filter:
+    blur(8px);
+
+  -webkit-backdrop-filter:
+    blur(8px);
+
+  z-index: 1000;
+
+  justify-content: center;
+  align-items: center;
+
+  padding:
+    2vh 2vw;
+}
+
+.schedule-card,
+.list-modal-content,
+.detail-modal,
+.admin-card {
+  background:
+    var(--card);
+
+  border:
+    5px solid var(--accent);
+
+  box-shadow:
+    0 14px 34px #3548702e;
+}
+
+
+/* =========================
+   일과표
+========================= */
+
+.schedule-card {
+  width: 95vw;
+
+  max-width: 560px;
+
+  max-height: 94vh;
+
+  border-radius: 28px;
+
+  padding:
+    1.5vh 3vw;
+
+  display: flex;
+
+  flex-direction: column;
+}
+
+.schedule-card.is-weekday {
+  height: 92vh;
+}
+
+.schedule-card-header {
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  border-bottom:
+    3px dashed #dfe6ef;
+
+  padding-bottom:
+    1vh;
+
+  margin-bottom:
+    1vh;
+}
+
+#schedule-title {
+  margin: 0;
+
+  color:
+    var(--title);
+
+  font-size:
+    clamp(
+      18px,
+      3.4vmin,
+      28px
+    );
+
+  font-weight: 900;
+
+  white-space: nowrap;
+}
+
+.btn-close-schedule,
+.close-btn {
+  background:
+    #304562;
+
+  color:
+    #ffe984;
+
+  border: none;
+
+  border-radius:
+    16px;
+
+  font-weight: 900;
+
+  cursor: pointer;
+}
+
+.btn-close-schedule {
+  flex: 1;
+
+  min-height:
+    42px;
+}
+
+.rect-schedule-box {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: .7vh;
+
+  overflow: hidden;
+}
+
+.schedule-card.is-weekday
+.rect-schedule-box {
+  flex: 1;
+}
+
+.rect-row {
+  display: flex;
+
+  align-items: center;
+
+  border-radius:
+    17px;
+
+  padding:
+    0 10px;
+
+  min-height:
+    65px;
+
+  cursor:
+    pointer;
+
+  border:
+    2px solid #ffffffb8;
+}
+
+.schedule-card.is-weekday
+.rect-row {
+  flex: 1;
+
+  min-height:
+    0;
+}
+
+.rect-time {
+  width: 42%;
+
+  text-align:
+    center;
+
+  font-weight:
+    900;
+
+  color:
+    #43546d;
+
+  border-right:
+    2px dotted #ccd4e0;
+
+  margin-right:
+    3vw;
+
+  white-space:
+    nowrap;
+}
+
+.rect-info {
+  display: flex;
+
+  align-items: center;
+
+  gap: 2vw;
+
+  font-weight: 900;
+
+  color:
+    var(--text);
+
+  font-size:
+    clamp(
+      13px,
+      3.6vmin,
+      20px
+    );
+}
+
+
+/* =========================
+   교과목 목록
+========================= */
+
+.list-modal-content {
+  width: 92vw;
+
+  max-width: 560px;
+
+  padding: 20px;
+
+  border-radius: 30px;
+
+  text-align: center;
+
+  display: flex;
+
+  flex-direction: column;
+
+  max-height: 90vh;
+}
+
+#list-modal-title,
+#info-title,
+#modal-title,
+#lunch-modal-title {
+  color:
+    var(--title);
+
+  font-weight:
+    900;
+}
+
+.schedule-list {
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 1.1vh;
+
+  overflow-y:
+    auto;
+
+  margin-bottom:
+    12px;
+}
+
+.schedule-item {
+  min-height: 84px;
+
+  display: flex;
+
+  align-items:
+    center;
+
+  padding:
+    10px 12px;
+
+  background:
+    #fff;
+
+  border-radius:
+    22px;
+
+  border:
+    2px solid #e8eef7;
+
+  cursor:
+    pointer;
+}
+
+.schedule-item.done {
+  background:
+    #f7fff7;
+
+  border-color:
+    #d5efd9;
+}
+
+.item-period-pill {
+  width: 22%;
+
+  min-width:
+    64px;
+
+  flex-shrink: 0;
+}
+
+.item-period-pill span,
+.info-pill span {
+  display:
+    inline-block;
+
+  width:
+    100%;
+
+  padding:
+    7px 0;
+
+  background:
+    var(--pill);
+
+  color:
+    var(--pillText);
+
+  border-radius:
+    25px;
+
+  font-weight:
+    900;
+}
+
+.item-content-zone {
+  flex: 1;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  gap:
+    12px;
+
+  margin-left:
+    13px;
+}
+
+.subject-badge {
+  width:
+    58px;
+
+  height:
+    58px;
+
+  border-radius:
+    17px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  font-size:
+    28px;
+
+  flex-shrink:
+    0;
+}
+
+.item-subject {
+  font-size:
+    clamp(
+      16px,
+      2.4vh,
+      22px
+    );
+
+  color:
+    var(--text);
+
+  font-weight:
+    900;
+}
+
+
+/* =========================
+   체크 버튼
+========================= */
+
+.subject-check {
+  width:
+    46px;
+
+  height:
+    46px;
+
+  border-radius:
+    50%;
+
+  border:
+    2px solid #d9e4f7;
+
+  background:
+    #edf3ff;
+
+  color:
+    #9aa9bf;
+
+  font-size:
+    23px;
+
+  font-weight:
+    900;
+
+  cursor:
+    pointer;
+}
+
+.subject-check.done {
+  background:
+    linear-gradient(
+      180deg,
+      var(--check1),
+      var(--check2)
+    );
+
+  color:
+    #fff;
+
+  border-color:
+    #fff;
+}
+
+
+/* =========================
+   상세 팝업
+========================= */
+
+.detail-modal {
+  width:
+    92vw;
+
+  max-width:
+    560px;
+
+  padding:
+    25px 20px;
+
+  border-radius:
+    30px;
+
+  text-align:
+    center;
+}
+
+.video-container {
+  width:
+    100%;
+
+  aspect-ratio:
+    16/9;
+
+  background:
+    #31405a;
+
+  border-radius:
+    18px;
+
+  overflow:
+    hidden;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+}
+
+video {
+  width:
+    100%;
+
+  height:
+    100%;
+}
+
+.close-btn {
+  width:
+    100%;
+
+  padding:
+    13px;
+
+  min-height:
+    48px;
+}
+
+
+/* =========================
+   준비물 / 소통창
+========================= */
+
+.info-popup-scroll-container {
+  max-height:
+    55vh;
+
+  overflow-y:
+    auto;
+
+  margin:
+    12px 0 18px;
+}
+
+.info-item {
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  padding:
+    14px;
+
+  margin-bottom:
+    11px;
+
+  background:
+    #fff;
+
+  border-radius:
+    20px;
+
+  border:
+    2px solid #e9eef5;
+}
+
+.info-pill {
+  width:
+    25%;
+
+  min-width:
+    75px;
+}
+
+.info-text-zone {
+  flex:
+    1;
+
+  margin-left:
+    15px;
+
+  color:
+    var(--text);
+
+  font-weight:
+    800;
+
+  text-align:
+    left;
+}
+
+
+/* =========================
+   급식
+========================= */
+
+.lunch-tray-container,
+.admin-tray-layout {
+  background:
+    linear-gradient(
+      135deg,
+      #f3f7fb,
+      #fff
+    );
+
+  border:
+    2px solid #d5dce8;
+
+  border-radius:
+    20px;
+
+  padding:
+    15px;
+
+  display:
+    flex;
+
+  flex-direction:
+    column;
+
+  gap:
+    12px;
+
+  margin:
+    10px 0;
+}
+
+.tray-row-top,
+.tray-row-bottom {
+  display:
+    flex;
+
+  gap:
+    12px;
+}
+
+.tray-row-top {
+  height:
+    11vh;
+}
+
+.tray-row-bottom {
+  height:
+    14vh;
+}
+
+.tray-slot {
+  flex:
+    1;
+
+  background:
+    #fff;
+
+  border:
+    1px solid #e4e9f1;
+
+  border-radius:
+    15px;
+
+  display:
+    flex;
+
+  align-items:
+    center;
+
+  justify-content:
+    center;
+
+  font-weight:
+    900;
+
+  color:
+    var(--text);
+
+  padding:
+    8px;
+
+  text-align:
+    center;
+}
+
+
+/* =========================
+   관리자
+========================= */
+
+.admin-card {
+  width:
+    90vw;
+
+  max-width:
+    460px;
+
+  border-radius:
+    30px;
+
+  padding:
+    24px 20px;
+
+  text-align:
+    center;
+}
+
+.admin-header {
+  font-size:
+    24px;
+
+  font-weight:
+    900;
+
+  color:
+    var(--title);
+
+  margin-bottom:
+    20px;
+}
+
+.tab-menu-container {
+  display:
+    flex;
+
+  gap:
+    8px;
+
+  margin-bottom:
+    20px;
+}
+
+.tab-menu-btn {
+  flex:
+    1;
+
+  padding:
+    10px 4px;
+
+  font-weight:
+    900;
+
+  background:
+    #fff;
+
+  color:
+    var(--text);
+
+  border:
+    3px solid var(--accent);
+
+  border-radius:
+    12px;
+
+  cursor:
+    pointer;
+}
+
+.tab-menu-btn.active {
+  background:
+    var(--accent);
+}
+
+.tab-content-panel {
+  max-height:
+    55vh;
+
+  overflow-y:
+    auto;
+
+  margin-bottom:
+    15px;
+}
+
+.field-label {
+  text-align:
+    center;
+
+  font-weight:
+    900;
+
+  color:
+    var(--text);
+
+  margin:
+    15px 0 8px;
+}
+
+.custom-select,
+.admin-card input,
+.admin-card textarea {
+  width:
+    100%;
+
+  border:
+    2px solid #d8e1ec;
+
+  border-radius:
+    15px;
+
+  padding:
+    12px;
+
+  font-size:
+    16px;
+
+  margin-bottom:
+    5px;
+
+  font-family:
+    inherit;
+}
+
+.action-btn {
+  width:
+    100%;
+
+  padding:
+    14px;
+
+  border:
+    none;
+
+  border-radius:
+    15px;
+
+  font-weight:
+    900;
+
+  font-size:
+    18px;
+
+  cursor:
+    pointer;
+
+  margin-top:
+    10px;
+}
+
+.btn-green {
+  background:
+    #62cb91;
+
+  color:
+    #fff;
+}
+
+.btn-grey {
+  background:
+    #4e617d;
+
+  color:
+    #ffe984;
+}
+
+
+/* =========================
+   접근성
+========================= */
+
+@media (
+  prefers-reduced-motion:
+  reduce
+) {
+
+  .p-circle {
+    animation:
+      none !important;
+  }
+}
+
+
+/* =========================
+   모바일 / 태블릿
+========================= */
+
+@media (
+  max-width:
+  768px
+) {
+
+  .main-title {
+    font-size:
+      2.55vh;
+  }
+
+  .theme-chip {
+    font-size:
+      12px;
+
+    padding:
+      7px 11px;
+  }
+
+  .planet-selector {
+    width:
+      72vmin;
+
+    height:
+      72vmin;
+  }
+
+  .planet-btn {
+    width:
+      14vh;
+
+    height:
+      14vh;
+
+    margin-left:
+      -5vh;
+
+    margin-top:
+      -5vh;
+  }
+
+  .planet-btn:nth-child(1) {
+    transform:
+      rotate(-98deg)
+      translate(37vmin)
+      rotate(98deg);
+  }
+
+  .planet-btn:nth-child(2) {
+    transform:
+      rotate(-46.6deg)
+      translate(36vmin)
+      rotate(46.6deg);
+  }
+
+  .planet-btn:nth-child(3) {
+    transform:
+      rotate(4.8deg)
+      translate(33vmin)
+      rotate(-4.8deg);
+  }
+
+  .planet-btn:nth-child(4) {
+    transform:
+      rotate(56.2deg)
+      translate(35vmin)
+      rotate(-56.2deg);
+  }
+
+  .planet-btn:nth-child(5) {
+    transform:
+      rotate(107.6deg)
+      translate(37vmin)
+      rotate(-107.6deg);
+  }
+
+  .planet-btn:nth-child(6) {
+    transform:
+      rotate(159deg)
+      translate(39vmin)
+      rotate(-159deg);
+  }
+
+  .planet-btn:nth-child(7) {
+    transform:
+      rotate(210.4deg)
+      translate(41vmin)
+      rotate(-210.4deg);
+  }
+
+  .p-circle {
+    width:
+      8.1vh;
+
+    height:
+      8.1vh;
+  }
+
+  .day-label {
+    font-size:
+      1.95vh;
+  }
+
+  .info-trigger-btn {
+    width:
+      34vw;
+  }
+
+  .schedule-card.is-weekday {
+    height:
+      94vh;
+  }
+
+  .subject-badge {
+    width:
+      54px;
+
+    height:
+      54px;
+  }
+
+  .subject-check {
+    width:
+      44px;
+
+    height:
+      44px;
+  }
+}
+</style>
+</head>
+
+
+<body class="theme-sky">
+
+
+<!-- =========================
+     상단
+========================= -->
+
+<div class="top-area">
+
+  <div class="main-title">
+    🚀 민준이의 우주 일과표
+  </div>
+
+  <div class="theme-switcher">
+
+    <button
+      class="theme-chip active"
+      data-theme="theme-sky"
+      onclick="applyTheme('theme-sky')"
+    >
+      ☁️ 하늘 우주
+    </button>
+
+    <button
+      class="theme-chip"
+      data-theme="theme-cotton"
+      onclick="applyTheme('theme-cotton')"
+    >
+      🌈 솜사탕 우주
+    </button>
+
+    <button
+      class="theme-chip"
+      data-theme="theme-mint"
+      onclick="applyTheme('theme-mint')"
+    >
+      🌿 민트 우주
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     행성
+========================= -->
+
+<div class="selector-container">
+
+  <div class="planet-selector">
+
+
+    <div
+      class="planet-btn"
+      onclick="openSchedule('월요일')"
+    >
+
+      <div
+        class="p-circle p-mercury"
+      ></div>
+
+      <div class="day-label">
+        월
+      </div>
+
+    </div>
+
+
+    <div
+      class="planet-btn"
+      onclick="openSchedule('화요일')"
+    >
+
+      <div
+        class="p-circle p-venus"
+      ></div>
+
+      <div class="day-label">
+        화
+      </div>
+
+    </div>
+
+
+    <div
+      class="planet-btn"
+      onclick="openSchedule('수요일')"
+    >
+
+      <div
+        class="p-circle p-earth"
+      ></div>
+
+      <div class="day-label">
+        수
+      </div>
+
+    </div>
+
+
+    <div
+      class="planet-btn"
+      onclick="openSchedule('목요일')"
+    >
+
+      <div
+        class="p-circle p-mars"
+      ></div>
+
+      <div class="day-label">
+        목
+      </div>
+
+    </div>
+
+
+    <div
+      class="planet-btn"
+      onclick="openSchedule('금요일')"
+    >
+
+      <div
+        class="p-circle p-jupiter"
+      ></div>
+
+      <div class="day-label">
+        금
+      </div>
+
+    </div>
+
+
+    <div
+      class="planet-btn"
+      onclick="openSchedule('토요일')"
+    >
+
+      <div
+        class="p-circle saturn-container"
+      >
+
+        <img
+          class="saturn-img"
+          src="https://static.vecteezy.com/system/resources/thumbnails/047/084/126/small/saturn-planet-on-transparent-background-png.png"
+          alt="토성"
+        >
+
+      </div>
+
+      <div class="day-label">
+        토
+      </div>
+
+    </div>
+
+
+    <div
+      class="planet-btn"
+      onclick="openSchedule('일요일')"
+    >
+
+      <div
+        class="p-circle p-uranus"
+      ></div>
+
+      <div class="day-label">
+        일
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     하단
+========================= -->
+
+<div class="bottom-info-bar">
+
+  <div class="center-btns">
+
+    <div
+      class="info-trigger-btn"
+      onclick="openInfoPopup('supplies')"
+    >
+
+      <h3>
+        🎒 준비물
+      </h3>
+
+    </div>
+
+
+    <div
+      class="info-trigger-btn"
+      onclick="openInfoPopup('diary')"
+    >
+
+      <h3>
+        📢 소통창
+      </h3>
+
+    </div>
+
+  </div>
+
+
+  <div
+    class="right-lock-zone"
+    onclick="openPwModal()"
+  >
+    🔒
+  </div>
+
+</div>
+
+
+<!-- =========================
+     일과표 모달
+========================= -->
+
+<div
+  id="schedule-page"
+  class="modal-overlay"
+>
+
+  <div
+    class="schedule-card"
+    id="main-schedule-card"
+  >
+
+    <div
+      class="schedule-card-header"
+    >
+
+      <h2 id="schedule-title"></h2>
+
+      <button
+        class="btn-close-schedule"
+        onclick="closeSchedule()"
+      >
+        닫기
+      </button>
+
+    </div>
+
+    <div
+      class="rect-schedule-box"
+      id="rect-schedule-box"
+    ></div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     교과목 목록
+========================= -->
+
+<div
+  id="list-modal"
+  class="modal-overlay"
+>
+
+  <div class="list-modal-content">
+
+    <h2
+      id="list-modal-title"
+    ></h2>
+
+    <div
+      class="schedule-list"
+      id="schedule-list-container"
+    ></div>
+
+    <button
+      class="close-btn"
+      onclick="closeListModal()"
+    >
+      뒤로가기
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     영상 / 안내
+========================= -->
+
+<div
+  id="msg-modal"
+  class="modal-overlay"
+>
+
+  <div class="detail-modal">
+
+    <h2
+      id="modal-title"
+    ></h2>
+
+    <div
+      id="video-area"
+      class="video-container"
+    ></div>
+
+    <div
+      id="video-desc"
+      style="
+        margin:15px 0;
+        color:#43546d;
+        font-weight:700;
+        white-space:pre-wrap;
+      "
+    ></div>
+
+    <button
+      class="close-btn"
+      onclick="closeModal()"
+    >
+      닫기
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     준비물 / 소통창
+========================= -->
+
+<div
+  id="info-modal"
+  class="modal-overlay"
+>
+
+  <div class="detail-modal">
+
+    <h2
+      id="info-title"
+    ></h2>
+
+    <div
+      class="info-popup-scroll-container"
+      id="info-list-container"
+    ></div>
+
+    <button
+      class="close-btn"
+      onclick="closeInfoPopup()"
+    >
+      닫기
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     급식
+========================= -->
+
+<div
+  id="lunch-modal"
+  class="modal-overlay"
+>
+
+  <div class="detail-modal">
+
+    <h2
+      id="lunch-modal-title"
+    ></h2>
+
+
+    <div
+      class="lunch-tray-container"
+    >
+
+      <div
+        class="tray-row-top"
+      >
+
+        <div
+          class="tray-slot"
+          id="lunch-slot-0"
+        ></div>
+
+        <div
+          class="tray-slot"
+          id="lunch-slot-1"
+        ></div>
+
+        <div
+          class="tray-slot"
+          id="lunch-slot-2"
+        ></div>
+
+      </div>
+
+
+      <div
+        class="tray-row-bottom"
+      >
+
+        <div
+          class="tray-slot"
+          id="lunch-slot-3"
+        ></div>
+
+        <div
+          class="tray-slot"
+          id="lunch-slot-4"
+        ></div>
+
+      </div>
+
+    </div>
+
+
+    <button
+      class="close-btn"
+      onclick="closeLunchPopup()"
+    >
+      닫기
+    </button>
+
+  </div>
+
+</div>
+
+
+<!-- =========================
+     관리자
+========================= -->
+
+<div
+  id="pw-modal"
+  class="modal-overlay"
+>
+
+  <div class="admin-card">
+
+
+    <div id="pw-section">
+
+      <div class="admin-header">
+        🔒 관리자 인증
+      </div>
+
+      <input
+        type="password"
+        id="pw-input"
+        maxlength="8"
+        placeholder="비밀번호"
+      >
+
+      <button
+        class="action-btn btn-green"
+        onclick="checkPassword()"
+      >
+        인증하기
+      </button>
+
+      <button
+        class="action-btn btn-grey"
+        onclick="closePwModal()"
+      >
+        나가기
+      </button>
+
+    </div>
+
+
+    <div
+      id="upload-section"
+      style="display:none"
+    >
+
+
+      <div
+        class="tab-menu-container"
+      >
+
+        <button
+          id="tab-btn-schedule"
+          class="tab-menu-btn active"
+          onclick="switchAdminTab('schedule')"
+        >
+          시간표
+        </button>
+
+
+        <button
+          id="tab-btn-info"
+          class="tab-menu-btn"
+          onclick="switchAdminTab('info')"
+        >
+          준비물/소통창
+        </button>
+
+
+        <button
+          id="tab-btn-lunch"
+          class="tab-menu-btn"
+          onclick="switchAdminTab('lunch')"
+        >
+          급식
+        </button>
+
+      </div>
+
+
+      <!-- 시간표 관리자 -->
+
+      <div
+        id="tab-content-schedule"
+        class="tab-content-panel"
+      >
+
+        <div class="field-label">
+          요일 선택
+        </div>
+
+        <select
+          id="admin-schedule-day"
+          class="custom-select"
+        >
+
+          <option>
+            월요일
+          </option>
+
+          <option>
+            화요일
+          </option>
+
+          <option>
+            수요일
+          </option>
+
+          <option>
+            목요일
+          </option>
+
+          <option>
+            금요일
+          </option>
+
+          <option>
+            토요일
+          </option>
+
+          <option>
+            일요일
+          </option>
+
+        </select>
+
+
+        <div
+          id="admin-weekday-zone"
+        >
+
+          <div class="field-label">
+            과목/교시 선택
+          </div>
+
+
+          <select
+            id="admin-schedule-period"
+            class="custom-select"
+          >
+
+            <option value="등교">
+              🎒 등교
+            </option>
+
+            <option value="1교시">
+              1교시
+            </option>
+
+            <option value="2교시">
+              2교시
+            </option>
+
+            <option value="3교시">
+              3교시
+            </option>
+
+            <option value="4교시">
+              4교시
+            </option>
+
+            <option value="점심">
+              🍱 점심
+            </option>
+
+            <option value="5교시">
+              5교시
+            </option>
+
+            <option value="6교시">
+              6교시
+            </option>
+
+            <option value="하교">
+              🏠 하교
+            </option>
+
+            <option value="감각치료">
+              🧩 감각치료
+            </option>
+
+            <option value="집으로">
+              👟 집으로
+            </option>
+
+          </select>
+
+
+          <div class="field-label">
+            변경할 과목 선택
+          </div>
+
+
+          <select
+            id="admin-schedule-subject"
+            class="custom-select"
+          >
+
+            <option>
+              국어
+            </option>
+
+            <option>
+              수학
+            </option>
+
+            <option>
+              사회
+            </option>
+
+            <option>
+              과학
+            </option>
+
+            <option>
+              영어
+            </option>
+
+            <option>
+              체육
+            </option>
+
+            <option>
+              음악
+            </option>
+
+            <option>
+              미술
+            </option>
+
+            <option>
+              실과
+            </option>
+
+            <option>
+              도덕
+            </option>
+
+            <option>
+              창체
+            </option>
+
+            <option>
+              자유시간
+            </option>
+
+          </select>
+
+
+          <div class="field-label">
+            영상 링크
+          </div>
+
+          <input
+            type="text"
+            id="admin-video-url"
+            placeholder="동영상 URL"
+          >
+
+
+          <div class="field-label">
+            소개글
+          </div>
+
+          <textarea
+            id="admin-schedule-desc"
+            rows="3"
+          ></textarea>
+
+
+          <button
+            class="action-btn btn-green"
+            onclick="saveScheduleVideoData()"
+          >
+            변경 저장
+          </button>
+
+        </div>
+
+
+        <!-- 주말 관리자 -->
+
+        <div
+          id="admin-weekend-zone"
+          style="display:none"
+        >
+
+          <div class="field-label">
+            주말 일정 추가
+          </div>
+
+          <textarea
+            id="admin-weekend-text"
+            rows="8"
+            placeholder="09:00~10:30 미술학원"
+          ></textarea>
+
+          <button
+            class="action-btn btn-green"
+            onclick="saveWeekendScheduleData()"
+          >
+            주말 일정 저장
+          </button>
+
+        </div>
+
+      </div>
+
+
+      <!-- 준비물 / 소통창 -->
+
+      <div
+        id="tab-content-info"
+        class="tab-content-panel"
+        style="display:none"
+      >
+
+        <div class="field-label">
+          설정 항목
+        </div>
+
+        <select
+          id="admin-info-type"
+          class="custom-select"
+          onchange="loadCurrentInfoData()"
+        >
+
+          <option value="supplies">
+            🎒 준비물
+          </option>
+
+          <option value="chat">
+            📢 선생님 소통창
+          </option>
+
+        </select>
+
+
+        <textarea
+          id="admin-info-text"
+          rows="6"
+        ></textarea>
+
+
+        <button
+          class="action-btn btn-green"
+          onclick="saveInfoData()"
+        >
+          내용 저장
+        </button>
+
+      </div>
+
+
+      <!-- 급식 관리자 -->
+
+      <div
+        id="tab-content-lunch"
+        class="tab-content-panel"
+        style="display:none"
+      >
+
+        <div class="field-label">
+          요일 선택
+        </div>
+
+
+        <select
+          id="admin-lunch-day"
+          class="custom-select"
+          onchange="loadCurrentLunchData()"
+        >
+
+          <option>
+            월요일
+          </option>
+
+          <option>
+            화요일
+          </option>
+
+          <option>
+            수요일
+          </option>
+
+          <option>
+            목요일
+          </option>
+
+          <option>
+            금요일
+          </option>
+
+        </select>
+
+
+        <div
+          class="admin-tray-layout"
+        >
+
+          <div
+            class="tray-row-top"
+          >
+
+            <input
+              id="lunch-input-0"
+              placeholder="반찬 1"
+            >
+
+            <input
+              id="lunch-input-1"
+              placeholder="반찬 2"
+            >
+
+            <input
+              id="lunch-input-2"
+              placeholder="반찬 3"
+            >
+
+          </div>
+
+
+          <div
+            class="tray-row-bottom"
+          >
+
+            <input
+              id="lunch-input-3"
+              placeholder="밥"
+            >
+
+            <input
+              id="lunch-input-4"
+              placeholder="국"
+            >
+
+          </div>
+
+        </div>
+
+
+        <button
+          class="action-btn btn-green"
+          onclick="saveLunchData()"
+        >
+          급식 저장
+        </button>
+
+      </div>
+
+
+      <button
+        class="action-btn btn-grey"
+        onclick="closePwModal()"
+      >
+        나가기
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<script>
+
+/* =========================
+   기본 시간표
+========================= */
+
+const defaultSchedule = {
+
+  "월요일": [
+    "국어",
+    "국어",
+    "도덕",
+    "사회",
+    "체육",
+    "영어"
+  ],
+
+  "화요일": [
+    "국어",
+    "국어",
+    "사회",
+    "과학",
+    "체육",
+    "영어"
+  ],
+
+  "수요일": [
+    "국어",
+    "국어",
+    "사회",
+    "과학",
+    "영어"
+  ],
+
+  "목요일": [
+    "수학",
+    "수학",
+    "음악",
+    "음악",
+    "미술",
+    "미술"
+  ],
+
+  "금요일": [
+    "수학",
+    "과학",
+    "실과",
+    "실과",
+    "창체",
+    "창체"
+  ],
+
+  "토요일": [],
+
+  "일요일": []
+
+};
+
+
+/* =========================
+   아이콘
+========================= */
+
+const iconMap = {
+
+  "잠": "💤",
+
+  "기상": "☀️",
+
+  "등교": "🎒",
+
+  "오전수업": "🏫",
+
+  "점심": "🍱",
+
+  "오후수업": "📚",
+
+  "감각치료": "🧩",
+
+  "국어": "📖",
+
+  "수학": "📐",
+
+  "사회": "🌍",
+
+  "과학": "🧪",
+
+  "영어": "🔤",
+
+  "체육": "⚽",
+
+  "음악": "🎵",
+
+  "미술": "🎨",
+
+  "실과": "🛠️",
+
+  "도덕": "🤝",
+
+  "창체": "🌟",
+
+  "자유시간": "🎮",
+
+  "집으로": "👟",
+
+  "하교": "🏠"
+
+};
+
+
+/* =========================
+   과목별 파스텔 색
+========================= */
+
+const subjectColorMap = {
+
+  "국어":
+    "#FFE3D7",
+
+  "수학":
+    "#DDEFFF",
+
+  "사회":
+    "#E4F7E8",
+
+  "과학":
+    "#EAE5FF",
+
+  "영어":
+    "#FFF2C8",
+
+  "체육":
+    "#FFE1EA",
+
+  "음악":
+    "#F4E4FF",
+
+  "미술":
+    "#FFECD1",
+
+  "실과":
+    "#DFFAF4",
+
+  "도덕":
+    "#FFE6D8",
+
+  "창체":
+    "#EAF6D8",
+
+  "자유시간":
+    "#E8EEFF"
+
+};
+
+
+/* =========================
+   저장 데이터 불러오기
+========================= */
+
+function loadLocalData() {
+
+  const base = {
+
+    adminPassword:
+      "d1234",
+
+    supplies:
+      [],
+
+    chat:
+      [],
+
+    lunch: {
+
+      "월요일": [],
+
+      "화요일": [],
+
+      "수요일": [],
+
+      "목요일": [],
+
+      "금요일": []
+
+    },
+
+    overrides:
+      {},
+
+    descriptions:
+      {},
+
+    urls:
+      {},
+
+    weekendSchedules: {
+
+      "토요일": [],
+
+      "일요일": []
+
+    },
+
+    checks:
+      {},
+
+    theme:
+      "theme-sky"
+
+  };
+
+
+  try {
+
+    const saved =
+      localStorage.getItem(
+        "minjunAppData"
+      );
+
+
+    const parsed =
+      saved
+        ? JSON.parse(saved)
+        : null;
+
+
+    if (!parsed) {
+
+      return base;
+
+    }
+
+
+    return {
+
+      ...base,
+
+      ...parsed,
+
+      lunch: {
+
+        ...base.lunch,
+
+        ...(parsed.lunch || {})
+
+      },
+
+      weekendSchedules: {
+
+        ...base.weekendSchedules,
+
+        ...(parsed.weekendSchedules || {})
+
+      },
+
+      checks:
+        parsed.checks || {}
+
+    };
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "저장 데이터 오류",
+      error
+    );
+
+    return base;
+
+  }
+
+}
+
+
+let appData =
+  loadLocalData();
+
+
+function saveLocalData() {
+
+  localStorage.setItem(
+
+    "minjunAppData",
+
+    JSON.stringify(
+      appData
+    )
+
+  );
+
+}
+
+
+/* =========================
+   테마
+========================= */
+
+function applyTheme(
+  theme
+) {
+
+  document.body.classList.remove(
+
+    "theme-sky",
+
+    "theme-cotton",
+
+    "theme-mint"
+
+  );
+
+
+  document.body.classList.add(
+    theme
+  );
+
+
+  appData.theme =
+    theme;
+
+
+  saveLocalData();
+
+
+  document
+    .querySelectorAll(
+      ".theme-chip"
+    )
+    .forEach(
+      button => {
+
+        button.classList.toggle(
+
+          "active",
+
+          button.dataset.theme === theme
+
+        );
+
+      }
+    );
+
+}
+
+
+/* =========================
+   시간 변환
+========================= */
+
+function formatRealTime(
+  decimal
+) {
+
+  const hours =
+    Math.floor(
+      decimal
+    );
+
+
+  const minutes =
+    Math.round(
+
+      (
+        decimal - hours
+      ) * 60
+
+    );
+
+
+  return (
+
+    String(hours)
+      .padStart(
+        2,
+        "0"
+      )
+
+    +
+
+    ":"
+
+    +
+
+    String(minutes)
+      .padStart(
+        2,
+        "0"
+      )
+
+  );
+
+}
+
+
+/* =========================
+   하루 일과 생성
+========================= */
+
+function getDayScheduleRect(
+  day
+) {
+
+  const items = [];
+
+
+  items.push({
+
+    s: 8,
+
+    e: 8.5,
+
+    label:
+      "기상",
+
+    bg:
+      "#FFF5DD",
+
+    eventId:
+      "기상",
+
+    icon:
+      "☀️"
+
+  });
+
+
+  if (
+    day === "토요일"
+    ||
+    day === "일요일"
+  ) {
+
+    const weekendItems =
+
+      appData
+        .weekendSchedules[
+          day
+        ]
+      || [];
+
+
+    weekendItems.forEach(
+
+      item => {
+
+        items.push({
+
+          ...item,
+
+          bg:
+            "#FFF3E6",
+
+          eventId:
+            "weekend-custom",
+
+          icon:
+            "🌟"
+
+        });
+
+      }
+
+    );
+
+  }
+
+  else {
+
+    items.push({
+
+      s: 8.5,
+
+      e: 9,
+
+      label:
+        "등교",
+
+      bg:
+        "#E3F3FF",
+
+      eventId:
+        "등교",
+
+      icon:
+        "🎒"
+
+    });
+
+
+    items.push({
+
+      s: 9,
+
+      e: 12.166,
+
+      label:
+        "오전수업",
+
+      bg:
+        "#FFE8EF",
+
+      eventId:
+        "오전수업",
+
+      icon:
+        "🏫"
+
+    });
+
+
+    items.push({
+
+      s: 12.166,
+
+      e: 13,
+
+      label:
+        "점심",
+
+      bg:
+        "#FFF3DF",
+
+      eventId:
+        "점심",
+
+      icon:
+        "🍱"
+
+    });
+
+
+    items.push({
+
+      s: 13,
+
+      e: 14.5,
+
+      label:
+        "오후수업",
+
+      bg:
+        "#F1E9FF",
+
+      eventId:
+        "오후수업",
+
+      icon:
+        "📚"
+
+    });
+
+
+    items.push({
+
+      s: 14.5,
+
+      e: 15,
+
+      label:
+        "하교",
+
+      bg:
+        "#FFF9DF",
+
+      eventId:
+        "하교",
+
+      icon:
+        "🏠"
+
+    });
+
+
+    if (
+      day === "화요일"
+      ||
+      day === "목요일"
+    ) {
+
+      items.push({
+
+        s: 15,
+
+        e: 22,
+
+        label:
+          "자유시간",
+
+        bg:
+          "#FFF2E4",
+
+        eventId:
+          "자유시간",
+
+        icon:
+          "🎮"
+
+      });
+
+    }
+
+    else {
+
+      items.push({
+
+        s: 15,
+
+        e: 17,
+
+        label:
+          "감각치료",
+
+        bg:
+          "#E5FAF8",
+
+        eventId:
+          "감각치료",
+
+        icon:
+          "🧩"
+
+      });
+
+
+      items.push({
+
+        s: 17,
+
+        e: 18,
+
+        label:
+          "집으로",
+
+        bg:
+          "#EEF8E8",
+
+        eventId:
+          "집으로",
+
+        icon:
+          "👟"
+
+      });
+
+
+      items.push({
+
+        s: 18,
+
+        e: 22,
+
+        label:
+          "자유시간",
+
+        bg:
+          "#FFF2E4",
+
+        eventId:
+          "자유시간",
+
+        icon:
+          "🎮"
+
+      });
+
+    }
+
+  }
+
+
+  items.push({
+
+    s: 22,
+
+    e: 8,
+
+    label:
+      "잠",
+
+    bg:
+      "#EEE9FA",
+
+    eventId:
+      "잠",
+
+    icon:
+      "💤"
+
+  });
+
+
+  return items;
+
+}
+
+
+/* =========================
+   일과표 열기
+========================= */
+
+function openSchedule(
+  day
+) {
+
+  document
+    .getElementById(
+      "schedule-title"
+    )
+    .innerText =
+
+      "⭐ "
+      +
+      day
+      +
+      " 일과표 ⭐";
+
+
+  const card =
+    document.getElementById(
+      "main-schedule-card"
+    );
+
+
+  card.classList.toggle(
+
+    "is-weekday",
+
+    !(
+      day === "토요일"
+      ||
+      day === "일요일"
+    )
+
+  );
+
+
+  const container =
+    document.getElementById(
+      "rect-schedule-box"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  getDayScheduleRect(
+    day
+  )
+  .forEach(
+
+    task => {
+
+      const row =
+        document.createElement(
+          "div"
+        );
+
+
+      row.className =
+        "rect-row";
+
+
+      row.style.background =
+        task.bg;
+
+
+      row.innerHTML = `
+
+        <div class="rect-time">
+
+          ${formatRealTime(task.s)}
+          ~
+          ${formatRealTime(task.e)}
+
+        </div>
+
+
+        <div class="rect-info">
+
+          <span>
+            ${task.icon}
+          </span>
+
+          <span>
+            ${task.label}
+          </span>
+
+        </div>
+
+      `;
+
+
+      row.onclick =
+        () => {
+
+          if (
+            task.eventId
+            ===
+            "점심"
+          ) {
+
+            openLunchPopup(
+              day
+            );
+
+          }
+
+          else if (
+            task.label
+            ===
+            "오전수업"
+          ) {
+
+            openListModal(
+              day,
+              "morning"
+            );
+
+          }
+
+          else if (
+            task.label
+            ===
+            "오후수업"
+          ) {
+
+            openListModal(
+              day,
+              "afternoon"
+            );
+
+          }
+
+          else {
+
+            openVideoModal(
+
+              day,
+
+              task.eventId,
+
+              task.label
+
+            );
+
+          }
+
+        };
+
+
+      container.appendChild(
+        row
+      );
+
+    }
+
+  );
+
+
+  document
+    .getElementById(
+      "schedule-page"
+    )
+    .style.display =
+      "flex";
+
+}
+
+
+function closeSchedule() {
+
+  document
+    .getElementById(
+      "schedule-page"
+    )
+    .style.display =
+      "none";
+
+}
+
+
+/* =========================
+   체크
+========================= */
+
+function isChecked(
+  day,
+  period
+) {
+
+  return !!appData.checks[
+
+    day
+    +
+    "-"
+    +
+    period
+
+  ];
+
+}
+
+
+function toggleCheck(
+  day,
+  period,
+  type
+) {
+
+  const key =
+
+    day
+    +
+    "-"
+    +
+    period;
+
+
+  appData.checks[key] =
+
+    !appData.checks[key];
+
+
+  saveLocalData();
+
+
+  openListModal(
+    day,
+    type
+  );
+
+}
+
+
+/* =========================
+   과목 목록
+========================= */
+
+function openListModal(
+  day,
+  type
+) {
+
+  document
+    .getElementById(
+      "list-modal-title"
+    )
+    .innerText =
+
+      type === "morning"
+
+        ? "🌤 오전수업"
+
+        : "🌷 오후수업";
+
+
+  const container =
+    document.getElementById(
+      "schedule-list-container"
+    );
+
+
+  container.innerHTML =
+    "";
+
+
+  const times = [
+
+    [
+      "1교시",
+      "morning"
+    ],
+
+    [
+      "2교시",
+      "morning"
+    ],
+
+    [
+      "3교시",
+      "morning"
+    ],
+
+    [
+      "4교시",
+      "morning"
+    ],
+
+    [
+      "5교시",
+      "afternoon"
+    ],
+
+    [
+      "6교시",
+      "afternoon"
+    ]
+
+  ];
+
+
+  times
+    .filter(
+      item =>
+        item[1]
+        ===
+        type
+    )
+    .forEach(
+
+      item => {
+
+        const period =
+          item[0];
+
+
+        const key =
+
+          day
+          +
+          "-"
+          +
+          period;
+
+
+        const subject =
+
+          appData
+            .overrides[key]
+
+          ||
+
+          (
+            defaultSchedule[day]
+            &&
+            defaultSchedule[day][
+              parseInt(period) - 1
+            ]
+          );
+
+
+        if (!subject) {
+
+          return;
+
+        }
+
+
+        const checked =
+
+          isChecked(
+            day,
+            period
+          );
+
+
+        const itemBox =
+
+          document.createElement(
+            "div"
+          );
+
+
+        itemBox.className =
+
+          "schedule-item"
+
+          +
+
+          (
+            checked
+              ? " done"
+              : ""
+          );
+
+
+        itemBox.onclick =
+          () => {
+
+            openVideoModal(
+
+              day,
+
+              period,
+
+              subject
+
+            );
+
+          };
+
+
+        const color =
+
+          subjectColorMap[
+            subject
+          ]
+
+          ||
+
+          "#eef4ff";
+
+
+        itemBox.innerHTML = `
+
+          <div
+            class="item-period-pill"
+          >
+
+            <span>
+
+              ${period}
+
+            </span>
+
+          </div>
+
+
+          <div
+            class="item-content-zone"
+          >
+
+            <div
+              class="subject-badge"
+              style="
+                background:
+                ${color}
+              "
+            >
+
+              ${iconMap[subject] || "⭐"}
+
+            </div>
+
+
+            <b
+              class="item-subject"
+            >
+
+              ${subject}
+
+            </b>
+
+          </div>
+
+
+          <button
+
+            class="
+              subject-check
+              ${checked ? "done" : ""}
+            "
+
+            onclick="
+              event.stopPropagation();
+
+              toggleCheck(
+                '${day}',
+                '${period}',
+                '${type}'
+              );
+            "
+
+          >
+
+            ${checked ? "✓" : ""}
+
+          </button>
+
+        `;
+
+
+        container.appendChild(
+          itemBox
+        );
+
+      }
+
+    );
+
+
+  document
+    .getElementById(
+      "list-modal"
+    )
+    .style.display =
+      "flex";
+
+}
+
+
+function closeListModal() {
+
+  document
+    .getElementById(
+      "list-modal"
+    )
+    .style.display =
+      "none";
+
+}
+
+
+/* =========================
+   영상 / 메시지
+========================= */
+
+function openVideoModal(
+  day,
+  id,
+  title
+) {
+
+  document
+    .getElementById(
+      "modal-title"
+    )
+    .innerText =
+      title;
+
+
+  const videoArea =
+    document.getElementById(
+      "video-area"
+    );
+
+
+  const description =
+    document.getElementById(
+      "video-desc"
+    );
+
+
+  const key =
+    day
+    +
+    "-"
+    +
+    id;
+
+
+  const videoRequired = [
+
+    "1교시",
+
+    "2교시",
+
+    "3교시",
+
+    "4교시",
+
+    "5교시",
+
+    "6교시",
+
+    "감각치료",
+
+    "등교"
+
+  ];
+
+
+  if (
+    !videoRequired.includes(
+      id
+    )
+  ) {
+
+    videoArea.style.display =
+      "none";
+
+
+    const messages = {
+
+      "잠":
+        "오늘도 수고했어요. 편안하게 쉬어요! 🌙",
+
+      "기상":
+        "좋은 아침이에요! 오늘도 즐겁게 시작해요. ☀️",
+
+      "하교":
+        "학교 일정이 끝났어요. 조심히 이동해요! 🏠",
+
+      "집으로":
+        "집으로 이동할 시간이에요. 👟",
+
+      "자유시간":
+        "즐거운 자유시간이에요! 🎮"
+
+    };
+
+
+    description.innerText =
+
+      appData
+        .descriptions[key]
+
+      ||
+
+      messages[id]
+
+      ||
+
+      title
+      +
+      " 시간이에요! ✨";
+
+  }
+
+  else {
+
+    videoArea.style.display =
+      "flex";
+
+
+    if (
+      appData.urls[key]
+    ) {
+
+      videoArea.innerHTML = `
+
+        <video
+
+          src="${appData.urls[key]}"
+
+          controls
+
+          autoplay
+
+          muted
+
+          playsinline
+
+        ></video>
+
+      `;
+
+    }
+
+    else {
+
+      videoArea.innerHTML = `
+
+        <div
+          style="
+            color:white;
+            font-weight:bold;
+          "
+        >
+
+          🎥 등록된 영상이 없습니다.
+
+        </div>
+
+      `;
+
+    }
+
+
+    description.innerText =
+
+      appData
+        .descriptions[key]
+
+      ||
+
+      "천천히 확인해 보아요. 😊";
+
+  }
+
+
+  document
+    .getElementById(
+      "msg-modal"
+    )
+    .style.display =
+      "flex";
+
+}
+
+
+function closeModal() {
+
+  document
+    .getElementById(
+      "msg-modal"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "video-area"
+    )
+    .innerHTML =
+      "";
+
+}
+
+
+/* =========================
+   급식
+========================= */
+
+function openLunchPopup(
+  day
+) {
+
+  document
+    .getElementById(
+      "lunch-modal-title"
+    )
+    .innerText =
+
+      day
+      +
+      " 점심 🍱";
+
+
+  const menus =
+
+    appData
+      .lunch[day]
+
+    ||
+
+    [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ];
+
+
+  for (
+    let i = 0;
+    i < 5;
+    i++
+  ) {
+
+    document
+      .getElementById(
+        "lunch-slot-" + i
+      )
+      .innerText =
+
+        menus[i]
+        ||
+        "";
+
+  }
+
+
+  document
+    .getElementById(
+      "lunch-modal"
+    )
+    .style.display =
+      "flex";
+
+}
+
+
+function closeLunchPopup() {
+
+  document
+    .getElementById(
+      "lunch-modal"
+    )
+    .style.display =
+      "none";
+
+}
+
+
+/* =========================
+   준비물 / 소통창
+========================= */
+
+function openInfoPopup(
+  type
+) {
+
+  const isSupplies =
+
+    type
+    ===
+    "supplies";
+
+
+  document
+    .getElementById(
+      "info-title"
+    )
+    .innerText =
+
+      isSupplies
+
+        ? "🎒 오늘의 준비물"
+
+        : "📢 선생님 소통창";
+
+
+  const container =
+
+    document.getElementById(
+      "info-list-container"
+    );
+
+
+  const data =
+
+    isSupplies
+
+      ? appData.supplies
+
+      : appData.chat;
+
+
+  container.innerHTML =
+    "";
+
+
+  if (
+    !data.length
+  ) {
+
+    container.innerHTML = `
+
+      <div
+        style="
+          padding:20px;
+          font-weight:bold;
+          color:#62718a;
+        "
+      >
+
+        🌼 등록된 내용이 없습니다.
+
+      </div>
+
+    `;
+
+  }
+
+  else {
+
+    data.forEach(
+
+      (
+        item,
+        index
+      ) => {
+
+        const box =
+
+          document.createElement(
+            "div"
+          );
+
+
+        box.className =
+          "info-item";
+
+
+        box.innerHTML = `
+
+          <div
+            class="info-pill"
+          >
+
+            <span>
+
+              ${
+                isSupplies
+                  ? "준비물"
+                  : "알림"
+              }
+
+              ${index + 1}
+
+            </span>
+
+          </div>
+
+
+          <div
+            class="info-text-zone"
+          >
+
+            ✨ ${item}
+
+          </div>
+
+        `;
+
+
+        container.appendChild(
+          box
+        );
+
+      }
+
+    );
+
+  }
+
+
+  document
+    .getElementById(
+      "info-modal"
+    )
+    .style.display =
+      "flex";
+
+}
+
+
+function closeInfoPopup() {
+
+  document
+    .getElementById(
+      "info-modal"
+    )
+    .style.display =
+      "none";
+
+}
+
+
+/* =========================
+   관리자
+========================= */
+
+function openPwModal() {
+
+  document
+    .getElementById(
+      "pw-modal"
+    )
+    .style.display =
+      "flex";
+
+}
+
+
+function closePwModal() {
+
+  document
+    .getElementById(
+      "pw-modal"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "pw-section"
+    )
+    .style.display =
+      "block";
+
+
+  document
+    .getElementById(
+      "upload-section"
+    )
+    .style.display =
+      "none";
+
+
+  document
+    .getElementById(
+      "pw-input"
+    )
+    .value =
+      "";
+
+}
+
+
+function checkPassword() {
+
+  const input =
+
+    document
+      .getElementById(
+        "pw-input"
+      )
+      .value;
+
+
+  const password =
+
+    appData
+      .adminPassword
+
+    ||
+
+    "d1234";
+
+
+  if (
+    input === password
+  ) {
+
+    document
+      .getElementById(
+        "pw-section"
+      )
+      .style.display =
+        "none";
+
+
+    document
+      .getElementById(
+        "upload-section"
+      )
+      .style.display =
+        "block";
+
+
+    switchAdminTab(
+      "schedule"
+    );
+
+  }
+
+  else {
+
+    alert(
+      "비밀번호가 틀렸습니다."
+    );
+
+  }
+
+}
+
+
+/* =========================
+   관리자 탭
+========================= */
+
+function switchAdminTab(
+  tab
+) {
+
+  [
+    "schedule",
+    "info",
+    "lunch"
+  ]
+  .forEach(
+
+    name => {
+
+      document
+        .getElementById(
+          "tab-btn-" + name
+        )
+        .classList
+        .remove(
+          "active"
+        );
+
+
+      document
+        .getElementById(
+          "tab-content-" + name
+        )
+        .style.display =
+          "none";
+
+    }
+
+  );
+
+
+  document
+    .getElementById(
+      "tab-btn-" + tab
+    )
+    .classList
+    .add(
+      "active"
+    );
+
+
+  document
+    .getElementById(
+      "tab-content-" + tab
+    )
+    .style.display =
+      "block";
+
+
+  if (
+    tab === "schedule"
+  ) {
+
+    updateAdminFields();
+
+  }
+
+  else if (
+    tab === "info"
+  ) {
+
+    loadCurrentInfoData();
+
+  }
+
+  else {
+
+    loadCurrentLunchData();
+
+  }
+
+}
+
+
+/* =========================
+   관리자 시간표
+========================= */
+
+function updateAdminFields() {
+
+  const day =
+
+    document
+      .getElementById(
+        "admin-schedule-day"
+      )
+      .value;
+
+
+  const weekend =
+
+    day === "토요일"
+
+    ||
+
+    day === "일요일";
+
+
+  document
+    .getElementById(
+      "admin-weekday-zone"
+    )
+    .style.display =
+
+      weekend
+        ? "none"
+        : "block";
+
+
+  document
+    .getElementById(
+      "admin-weekend-zone"
+    )
+    .style.display =
+
+      weekend
+        ? "block"
+        : "none";
+
+
+  if (weekend) {
+
+    document
+      .getElementById(
+        "admin-weekend-text"
+      )
+      .value =
+
+        (
+          appData
+            .weekendSchedules[day]
+          ||
+          []
+        )
+
+        .map(
+
+          item =>
+
+            formatRealTime(
+              item.s
+            )
+
+            +
+
+            "~"
+
+            +
+
+            formatRealTime(
+              item.e
+            )
+
+            +
+
+            " "
+
+            +
+
+            item.label
+
+        )
+
+        .join(
+          "\n"
+        );
+
+  }
+
+  else {
+
+    const period =
+
+      document
+        .getElementById(
+          "admin-schedule-period"
+        )
+        .value;
+
+
+    const key =
+
+      day
+      +
+      "-"
+      +
+      period;
+
+
+    document
+      .getElementById(
+        "admin-schedule-desc"
+      )
+      .value =
+
+        appData
+          .descriptions[key]
+
+        ||
+
+        "";
+
+
+    document
+      .getElementById(
+        "admin-video-url"
+      )
+      .value =
+
+        appData
+          .urls[key]
+
+        ||
+
+        "";
+
+  }
+
+}
+
+
+/* =========================
+   시간표 저장
+========================= */
+
+function saveScheduleVideoData() {
+
+  const day =
+
+    document
+      .getElementById(
+        "admin-schedule-day"
+      )
+      .value;
+
+
+  const period =
+
+    document
+      .getElementById(
+        "admin-schedule-period"
+      )
+      .value;
+
+
+  const key =
+
+    day
+    +
+    "-"
+    +
+    period;
+
+
+  appData.overrides[key] =
+
+    document
+      .getElementById(
+        "admin-schedule-subject"
+      )
+      .value;
+
+
+  appData.descriptions[key] =
+
+    document
+      .getElementById(
+        "admin-schedule-desc"
+      )
+      .value;
+
+
+  appData.urls[key] =
+
+    document
+      .getElementById(
+        "admin-video-url"
+      )
+      .value
+      .trim();
+
+
+  saveLocalData();
+
+
+  alert(
+    "저장되었습니다."
+  );
+
+}
+
+
+/* =========================
+   주말 저장
+========================= */
+
+function saveWeekendScheduleData() {
+
+  const day =
+
+    document
+      .getElementById(
+        "admin-schedule-day"
+      )
+      .value;
+
+
+  const text =
+
+    document
+      .getElementById(
+        "admin-weekend-text"
+      )
+      .value;
+
+
+  const items = [];
+
+
+  text
+    .split(
+      "\n"
+    )
+    .forEach(
+
+      line => {
+
+        const match =
+
+          line.match(
+
+            /^(\d{2}):(\d{2})\s*~\s*(\d{2}):(\d{2})\s+(.+)$/
+
+          );
+
+
+        if (match) {
+
+          items.push({
+
+            s:
+
+              Number(match[1])
+
+              +
+
+              Number(match[2])
+              /
+              60,
+
+
+            e:
+
+              Number(match[3])
+
+              +
+
+              Number(match[4])
+              /
+              60,
+
+
+            label:
+
+              match[5]
+                .trim()
+
+          });
+
+        }
+
+      }
+
+    );
+
+
+  appData
+    .weekendSchedules[day] =
+      items;
+
+
+  saveLocalData();
+
+
+  alert(
+    "저장되었습니다."
+  );
+
+}
+
+
+/* =========================
+   준비물 / 소통창 관리자
+========================= */
+
+function loadCurrentInfoData() {
+
+  const type =
+
+    document
+      .getElementById(
+        "admin-info-type"
+      )
+      .value;
+
+
+  document
+    .getElementById(
+      "admin-info-text"
+    )
+    .value =
+
+      (
+        type === "supplies"
+
+          ? appData.supplies
+
+          : appData.chat
+
+      )
+
+      .join(
+        "\n"
+      );
+
+}
+
+
+function saveInfoData() {
+
+  const type =
+
+    document
+      .getElementById(
+        "admin-info-type"
+      )
+      .value;
+
+
+  const lines =
+
+    document
+      .getElementById(
+        "admin-info-text"
+      )
+      .value
+
+      .split(
+        "\n"
+      )
+
+      .map(
+        item =>
+          item.trim()
+      )
+
+      .filter(
+        Boolean
+      );
+
+
+  if (
+    type === "supplies"
+  ) {
+
+    appData.supplies =
+      lines;
+
+  }
+
+  else {
+
+    appData.chat =
+      lines;
+
+  }
+
+
+  saveLocalData();
+
+
+  alert(
+    "저장되었습니다."
+  );
+
+}
+
+
+/* =========================
+   급식 관리자
+========================= */
+
+function loadCurrentLunchData() {
+
+  const day =
+
+    document
+      .getElementById(
+        "admin-lunch-day"
+      )
+      .value;
+
+
+  const menu =
+
+    appData
+      .lunch[day]
+
+    ||
+
+    [
+      "",
+      "",
+      "",
+      "",
+      ""
+    ];
+
+
+  for (
+    let i = 0;
+    i < 5;
+    i++
+  ) {
+
+    document
+      .getElementById(
+        "lunch-input-" + i
+      )
+      .value =
+
+        menu[i]
+        ||
+        "";
+
+  }
+
+}
+
+
+function saveLunchData() {
+
+  const day =
+
+    document
+      .getElementById(
+        "admin-lunch-day"
+      )
+      .value;
+
+
+  const menu = [];
+
+
+  for (
+    let i = 0;
+    i < 5;
+    i++
+  ) {
+
+    menu.push(
+
+      document
+        .getElementById(
+          "lunch-input-" + i
+        )
+        .value
+        .trim()
+
+    );
+
+  }
+
+
+  appData.lunch[day] =
+    menu;
+
+
+  saveLocalData();
+
+
+  alert(
+    "저장되었습니다."
+  );
+
+}
+
+
+/* =========================
+   시작
+========================= */
+
+window.addEventListener(
+
+  "DOMContentLoaded",
+
+  () => {
+
+    document
+      .getElementById(
+        "admin-schedule-day"
+      )
+      .addEventListener(
+
+        "change",
+
+        updateAdminFields
+
+      );
+
+
+    document
+      .getElementById(
+        "admin-schedule-period"
+      )
+      .addEventListener(
+
+        "change",
+
+        updateAdminFields
+
+      );
+
+
+    applyTheme(
+
+      appData.theme
+
+      ||
+
+      "theme-sky"
+
+    );
+
+  }
+
+);
+
+</script>
+
+</body>
+</html>
